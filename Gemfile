@@ -3,7 +3,13 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
+# Gebruik Devise voor authenticatie systeem
+gem 'devise', '~> 3.5', '>= 3.5.3'
+# Gebruik Twitter-Bootstrap-Rails voor styling
+gem 'twitter-bootstrap-rails', '~> 3.2', '>= 3.2.2'
+# Nog meer styling:
+gem 'devise-bootstrap-views', '~> 0.0.7'
+# Use sqlite3 as the database for Active Record --> verhuisd naar group: dev / test i.v.m. postgres voor heroku (prod.)
 # gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
