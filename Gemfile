@@ -9,6 +9,8 @@ gem 'devise', '~> 3.5', '>= 3.5.3'
 gem 'twitter-bootstrap-rails', '~> 3.2', '>= 3.2.2'
 # Nog meer styling:
 gem 'devise-bootstrap-views', '~> 0.0.7'
+# gebruik stock_quote voor ophalen aandelen koersen
+gem 'stock_quote', '~> 1.2', '>= 1.2.3'
 # Use sqlite3 as the database for Active Record --> verhuisd naar group: dev / test i.v.m. postgres voor heroku (prod.)
 # gem 'sqlite3'
 # Use SCSS for stylesheets
