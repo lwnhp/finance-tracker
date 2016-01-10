@@ -1,3 +1,6 @@
+/*  global show_spinner */
+/*  global hide_spinner */
+
 var init_stock_lookup;
 
 init_stock_lookup = function() {
