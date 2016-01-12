@@ -24,17 +24,31 @@ class UserStocksController < ApplicationController
   # POST /user_stocks
   # POST /user_stocks.json
   def create
-    @user_stock = UserStock.new(user_stock_params)
-
-    respond_to do |format|
-      if @user_stock.save
-        format.html { redirect_to @user_stock, notice: 'User stock was successfully created.' }
-        format.json { render :show, status: :created, location: @user_stock }
+      if params[:stock_id].present?
+        @user_stock = UserStock.new(stock_id: params[:stock_id], user: current_user)
       else
-        format.html { render :new }
-        format.json { render json: @user_stock.errors, status: :unprocessable_entity }
+        stock = Stock.find_by_ticker(params[:stock_ticker])
+          if stock
+            @user_stock = UserStock.new(user: current_user, stock: stock)
+          else
+            stock = Stock.new_from_lookup(params[:stock_ticker])
+            if stock.save
+              @user_stock = UserStock.new(user: current_user, stock: stock)
+            else
+              @user_stock = nil
+              flash[:error] = "Stock is not available"
+            end
+          end
       end
-    end
+      respond_to do |format|
+        if @user_stock.save
+          format.html { redirect_to my_portfolio_path, notice: "Stock #{@user_stock.stock.ticker} was successfully added." }
+          format.json { render :show, status: :created, location: @user_stock }
+        else
+          format.html { render :new }
+          format.json { render json: @user_stock.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   # PATCH/PUT /user_stocks/1
@@ -56,7 +70,7 @@ class UserStocksController < ApplicationController
   def destroy
     @user_stock.destroy
     respond_to do |format|
-      format.html { redirect_to user_stocks_url, notice: 'User stock was successfully destroyed.' }
+      format.html { redirect_to my_portfolio_path, notice: 'Stock was successfully removed from your portfolio.' }
       format.json { head :no_content }
     end
   end
