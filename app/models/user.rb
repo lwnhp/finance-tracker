@@ -21,4 +21,12 @@ class User < ActiveRecord::Base
     user_stocks.where(stock_id: stock.id).exists?
   end
   
+  def full_name
+    if (first_name || last_name)
+      return "#{first_name} #{last_name}".strip 
+    else
+      return "Anonymous"
+    end
+  end
+  
 end
