@@ -1,3 +1,7 @@
+<script>$(document).ready(function() {
+    init_stock_lookup();
+})</script>
+
 <div id="stock-lookup">
     <h3><small>Search for Stocks</small></h3>
     <%= form_tag search_stocks_path, remote: true, method: :get, id: 'stock-lookup-form' do %>
